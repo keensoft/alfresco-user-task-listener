@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   	<!-- Add custom activiti parse handler to Alfresco default bean by using spring bean post processor feature -->
+	<bean id="keensoftCustomUserTaskListener" class="es.keensoft.repo.workflow.activiti.CustomUserTaskListenerInit">
+		<property name="beanName" value="activitiProcessEngineConfiguration" />
+		<property name="propertyName" value="postBpmnParseHandlers"/>	
+		<property name="customPostBpmnParseHandlers">
+           <list>
+               <ref bean="customActivitiUserTaskParseHandler" />
+           </list>
+       	</property>
+	</bean>
+	
+   	<bean id="customActivitiUserTaskParseHandler" class="es.keensoft.repo.workflow.activiti.CustomUserTaskBpmnParseHandler">
+		<property name="createTaskListener" ref="customActivitiCreateTaskListener" />
+		<property name="completeTaskListener" ref="customActivitiCompleteTaskListener" />
+		<property name="assignmentTaskListener" ref="customActivitiAssignmentTaskListener" />
+		<property name="multiInstanceExecutionListener" ref="multiInstanceExecutionListener" />
+	</bean>
+	
+	<bean id="customActivitiCreateTaskListener" class="es.keensoft.repo.workflow.activiti.CustomTaskCreateListener">
+	    <property name="externalTaskSystem" ref="externalTaskSystem" />
+	</bean>
+	<bean id="customActivitiCompleteTaskListener" class="es.keensoft.repo.workflow.activiti.CustomTaskCompleteListener">
+	    <property name="externalTaskSystem" ref="externalTaskSystem" />
+	</bean>
+	<bean id="customActivitiAssignmentTaskListener" class="es.keensoft.repo.workflow.activiti.CustomAssignmentCompleteListener">
+	    <property name="externalTaskSystem" ref="externalTaskSystem" />
+	</bean>
+	<bean id="multiInstanceExecutionListener" class="es.keensoft.repo.workflow.activiti.MultiInstanceExecutionListener">
+	    <property name="externalTaskSystem" ref="externalTaskSystem" />
+	</bean>
+	
+	<!-- 
+	     External task system dummy implementation, just only for DEMO purposes 
+	     To be replaced for a real implementation
+	 -->
+	<bean id="externalTaskSystem" class="es.keensoft.ext.task.DummyExternalTaskSystem"/>
+	
+</beans>

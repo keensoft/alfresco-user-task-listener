@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>es.keensoft.alfresco</groupId>
+	<artifactId>activiti-listener</artifactId>
+	<packaging>amp</packaging>
+	<name>Alfresco :: Activiti Listener</name>
+	<description>User task activiti listener</description>
+	<version>${version}</version>
+
+	<properties>
+		<version>0.8.0</version>
+		<skipTests>false</skipTests>
+		<alfresco.version>4.2.d</alfresco.version>
+		<activiti.version>5.13-alf-20130820</activiti.version>	
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<alfresco.client.war>alfresco</alfresco.client.war>
+	</properties>
+
+	<parent>
+		<groupId>org.alfresco.maven</groupId>
+		<artifactId>alfresco-sdk-parent</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.alfresco</groupId>
+			<artifactId>alfresco-core</artifactId>
+			<version>${alfresco.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.alfresco</groupId>
+			<artifactId>alfresco-repository</artifactId>
+			<version>${alfresco.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+			<version>${activiti.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring</artifactId>
+            <version>${activiti.version}</version>
+            <scope>provided</scope>
+        </dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>alfresco-public-artifacts</id>
+			<url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
+		</repository>
+		<repository>
+			<id>alfresco-public</id>
+			<url>http://maven.alfresco.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
+
+	<build>	
+		<finalName>${project.artifactId}-${version}</finalName>	
+	
+	</build>
+</project>
